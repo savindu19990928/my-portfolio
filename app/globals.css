@@ -1,26 +1,235 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --bg-canvas: #f7f9fa;
+  --bg-surface: #ffffff;
+  --bg-elevated: #eef2f5;
+  --bg-nav: rgba(247, 249, 250, 0.9);
+  --bg-code: #f0f4f7;
+  --bg-tile-icon: #f4f6f8;
+
+  --border-subtle: rgba(13, 18, 22, 0.1);
+  --border-strong: rgba(13, 18, 22, 0.2);
+  --border-grid: rgba(13, 18, 22, 0.04);
+
+  --text-primary: #0d1216;
+  --text-secondary: #43505c;
+  --text-muted: #556371;
+
+  --accent-emerald: #09b57b;
+  --accent-emerald-ink: #057850;
+  --accent-emerald-soft: rgba(9, 181, 123, 0.11);
+  --accent-emerald-border: rgba(5, 120, 80, 0.32);
+  --accent-emerald-on-fill: #051610;
+
+  --accent-gold: #ffd900;
+  --accent-gold-ink: #8a6400;
+  --accent-gold-soft: rgba(255, 217, 0, 0.2);
+  --accent-gold-border: rgba(168, 125, 0, 0.35);
+
+  --accent-coral: #ff5c5d;
+  --accent-coral-ink: #c6282a;
+  --accent-coral-soft: rgba(255, 92, 93, 0.11);
+  --accent-coral-border: rgba(198, 40, 42, 0.32);
+
+  --shadow-card: 0 1px 2px rgba(13, 18, 22, 0.04), 0 16px 36px -24px rgba(13, 18, 22, 0.18);
+  --shadow-dialog: 0 28px 80px -16px rgba(13, 18, 22, 0.28);
+
+  --scrollbar-track: #eaedf0;
+  --scrollbar-thumb: #95a2af;
+
+  accent-color: var(--accent-emerald);
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]),
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-canvas: #0b0d0f;
+  --bg-surface: #12161a;
+  --bg-elevated: #181d23;
+  --bg-nav: rgba(11, 13, 15, 0.88);
+  --bg-code: #0e1216;
+  --bg-tile-icon: #f4f6f8;
+
+  --border-subtle: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --border-grid: rgba(255, 255, 255, 0.032);
+
+  --text-primary: #f4f6f8;
+  --text-secondary: #a8b3bf;
+  --text-muted: #84919f;
+
+  --accent-emerald: #09b57b;
+  --accent-emerald-ink: #16d493;
+  --accent-emerald-soft: rgba(9, 181, 123, 0.13);
+  --accent-emerald-border: rgba(9, 181, 123, 0.36);
+  --accent-emerald-on-fill: #051610;
+
+  --accent-gold: #ffd900;
+  --accent-gold-ink: #ffd900;
+  --accent-gold-soft: rgba(255, 217, 0, 0.12);
+  --accent-gold-border: rgba(255, 217, 0, 0.36);
+
+  --accent-coral: #ff5c5d;
+  --accent-coral-ink: #ff7a7b;
+  --accent-coral-soft: rgba(255, 92, 93, 0.13);
+  --accent-coral-border: rgba(255, 92, 93, 0.38);
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03), 0 18px 40px -24px rgba(0, 0, 0, 0.72);
+  --shadow-dialog: 0 28px 80px -16px rgba(0, 0, 0, 0.82);
+
+  --scrollbar-track: #111519;
+  --scrollbar-thumb: #3a444f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-padding-top: 88px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.eng-grid-bg {
+  background-image:
+    linear-gradient(to right, var(--border-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+::selection {
+  background-color: var(--accent-emerald);
+  color: var(--accent-emerald-on-fill);
+}
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-emerald-ink);
+  outline-offset: 2px;
+}
+
+/* Native accessible modal dialog with Modern Web Guidance top-layer transitions */
+dialog.project-dialog {
+  margin: auto;
+  max-width: min(760px, calc(100vw - 24px));
+  max-height: min(88dvh, 840px);
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-dialog);
+  padding: 0;
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-behavior: allow-discrete;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.project-dialog {
+    transform: translateY(10px) scale(0.97);
+  }
+}
+
+dialog.project-dialog[open] {
+  opacity: 1;
+}
+
+@starting-style {
+  dialog.project-dialog[open] {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.project-dialog[open] {
+    transform: translateY(0) scale(1);
+  }
+  @starting-style {
+    dialog.project-dialog[open] {
+      transform: translateY(10px) scale(0.97);
+    }
+  }
+}
+
+dialog.project-dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog.project-dialog::backdrop {
+  background-color: rgba(5, 7, 9, 0);
+  backdrop-filter: blur(0px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  transition-property: background-color, backdrop-filter, display, overlay;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+dialog.project-dialog[open]::backdrop {
+  background-color: rgba(5, 7, 9, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+@starting-style {
+  dialog.project-dialog[open]::backdrop {
+    background-color: rgba(5, 7, 9, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.project-dialog,
+  dialog.project-dialog::backdrop {
+    transition-duration: 0.1s;
+  }
+}
+
+/* Subtle engineering pipeline pulse animation — only active under no-preference and unpaused */
+@keyframes pulse-flow {
+  0% {
+    stroke-dashoffset: 36;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pipeline-stream {
+  stroke-dasharray: 6 12;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pipeline-stream[data-running="true"] {
+    animation: pulse-flow 2.2s linear infinite;
+  }
 }
