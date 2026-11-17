@@ -91,6 +91,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <meta name="color-scheme" content="light" />
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Static theme initialization script prevents light/dark FOUC before first paint */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="min-h-full flex flex-col antialiased">{children}</body>

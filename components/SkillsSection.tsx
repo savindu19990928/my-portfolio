@@ -14,12 +14,11 @@ function ConceptGlyph({ glyph }: { glyph?: SkillItem["glyph"] }) {
     strokeWidth: 2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
-    "aria-hidden": true as const,
   };
 
   if (glyph === "shield") {
     return (
-      <svg {...strokeProps}>
+      <svg {...strokeProps} aria-hidden="true">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
         <path d="m9 12 2 2 4-4" />
       </svg>
@@ -27,7 +26,7 @@ function ConceptGlyph({ glyph }: { glyph?: SkillItem["glyph"] }) {
   }
   if (glyph === "lock") {
     return (
-      <svg {...strokeProps}>
+      <svg {...strokeProps} aria-hidden="true">
         <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
       </svg>
@@ -35,7 +34,7 @@ function ConceptGlyph({ glyph }: { glyph?: SkillItem["glyph"] }) {
   }
   if (glyph === "bug") {
     return (
-      <svg {...strokeProps}>
+      <svg {...strokeProps} aria-hidden="true">
         <path d="m8 2 1.88 1.88" />
         <path d="M14.12 3.88 16 2" />
         <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" />
@@ -51,7 +50,7 @@ function ConceptGlyph({ glyph }: { glyph?: SkillItem["glyph"] }) {
     );
   }
   return (
-    <svg {...strokeProps}>
+    <svg {...strokeProps} aria-hidden="true">
       <path d="M4 17l6-6-6-6" />
       <path d="M12 19h8" />
     </svg>
@@ -92,11 +91,8 @@ export function SkillsSection() {
           </div>
 
           {/* Interactive Category Filter */}
-          <div
-            role="group"
-            aria-label="Filter technical skills by category"
-            className="flex flex-wrap gap-2"
-          >
+          <fieldset className="m-0 flex flex-wrap gap-2 border-0 p-0">
+            <legend className="sr-only">Filter technical skills by category</legend>
             <button
               type="button"
               onClick={() => setSelectedCategory("all")}
@@ -127,7 +123,7 @@ export function SkillsSection() {
                 </button>
               );
             })}
-          </div>
+          </fieldset>
         </div>
 
         <div

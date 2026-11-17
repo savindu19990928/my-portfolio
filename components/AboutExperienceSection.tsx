@@ -23,8 +23,8 @@ export function AboutExperienceSection() {
             </h2>
 
             <div className="mt-6 space-y-4 max-w-[62ch] text-base leading-[1.7] text-[var(--text-secondary)]">
-              {PERSONAL_INFO.aboutParagraphs.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
+              {PERSONAL_INFO.aboutParagraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 32)}>{paragraph}</p>
               ))}
             </div>
 

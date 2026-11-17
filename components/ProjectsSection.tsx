@@ -95,7 +95,7 @@ export function ProjectsSection() {
 
   const closeProjectModal = () => {
     const dialog = dialogRef.current;
-    if (dialog && dialog.open) {
+    if (dialog?.open) {
       dialog.close();
     }
   };
@@ -120,11 +120,8 @@ export function ProjectsSection() {
             </p>
           </div>
 
-          <div
-            role="group"
-            aria-label="Filter personal and technical projects"
-            className="flex flex-wrap gap-2"
-          >
+          <fieldset className="m-0 flex flex-wrap gap-2 border-0 p-0">
+            <legend className="sr-only">Filter personal and technical projects</legend>
             {FILTERS.map((filter) => {
               const active = activeFilter === filter;
               return (
@@ -143,7 +140,7 @@ export function ProjectsSection() {
                 </button>
               );
             })}
-          </div>
+          </fieldset>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -418,6 +415,7 @@ export function ProjectsSection() {
 
               <button
                 type="button"
+                // biome-ignore lint/a11y/noAutofocus: Native modal dialog initial focus moves to primary dialog control
                 autoFocus
                 onClick={closeProjectModal}
                 aria-label="Close project details"

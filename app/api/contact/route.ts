@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { PERSONAL_INFO } from "@/data/portfolio";
 
 interface ContactPayload {

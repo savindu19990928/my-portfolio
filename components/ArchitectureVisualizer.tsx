@@ -277,6 +277,7 @@ export function ArchitectureVisualizer() {
             viewBox="0 0 600 18"
             className="h-[18px] w-full overflow-visible"
             fill="none"
+            aria-hidden="true"
           >
             <line
               x1="12"
